@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solutions | Just Automate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #F97316;
+      --orange-light: #FDBA74;
+      --orange-dark: #EA6C0A;
+      --charcoal: #0D1117;
+      --charcoal-2: #161B22;
+      --charcoal-3: #1F2937;
+      --charcoal-4: #374151;
+      --mid: #4B5563;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --surface: #F8FAFC;
+      --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--surface); color: var(--charcoal-3); overflow-x: hidden; }
+    h1, h2, h3, h4, h5 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* ── Topbar ── */
+    .topbar { background: var(--charcoal); padding: 9px 0; }
+
+    /* ── Nav ── */
+    nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(229,231,235,0.8); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 20px rgba(0,0,0,0.06); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-link { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--charcoal-3); text-decoration: none; padding: 6px 0; position: relative; transition: color 0.2s ease; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--orange); border-radius: 1px; transform: scaleX(0); transform-origin: left; transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
+    .nav-link:hover { color: var(--orange); }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link.active { color: var(--orange); }
+    .nav-link.active::after { transform: scaleX(1); }
+
+    /* ── Buttons ── */
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14px; padding: 13px 26px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: background 0.2s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(249,115,22,0.35); white-space: nowrap; }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,0.45); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+    .btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--charcoal-3); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 14px; padding: 12px 25px; border-radius: 50px; border: 1.5px solid var(--border); cursor: pointer; text-decoration: none; transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1); }
+    .btn-ghost:hover { background: var(--charcoal-3); color: #fff; border-color: var(--charcoal-3); transform: translateY(-2px); }
+    .btn-ghost:focus-visible { outline: 2px solid var(--charcoal-3); outline-offset: 3px; }
+
+    .btn-ghost-light { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 14px; padding: 12px 25px; border-radius: 50px; border: 1.5px solid rgba(255,255,255,0.25); cursor: pointer; text-decoration: none; transition: background 0.2s ease, border-color 0.2s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1); }
+    .btn-ghost-light:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); }
+    .btn-ghost-light:focus-visible { outline: 2px solid rgba(255,255,255,0.5); outline-offset: 3px; }
+
+    /* ── Page Hero ── */
+    .page-hero { background: var(--charcoal); position: relative; overflow: hidden; padding: 80px 28px 100px; text-align: center; }
+    .page-hero::before { content: ''; position: absolute; top: -200px; left: -200px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.13) 0%, transparent 65%); pointer-events: none; }
+    .page-hero::after { content: ''; position: absolute; bottom: -150px; right: -100px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(253,186,116,0.07) 0%, transparent 65%); pointer-events: none; }
+    .page-hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25); border-radius: 50px; padding: 6px 14px; margin-bottom: 24px; }
+    .hero-eyebrow span { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: var(--orange-light); letter-spacing: 0.06em; text-transform: uppercase; }
+    .page-hero h1 { font-size: clamp(36px, 4.5vw, 56px); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; color: #fff; margin-bottom: 20px; }
+    .page-hero h1 .accent { color: var(--orange); }
+    .page-hero p { font-size: 17px; line-height: 1.75; color: #9CA3AF; max-width: 560px; margin: 0 auto 36px; }
+
+    /* ── Section header ── */
+    .section-eyebrow { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: var(--orange); letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    .section-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(28px, 3.5vw, 42px); letter-spacing: -0.025em; color: var(--charcoal-3); line-height: 1.15; margin-bottom: 16px; }
+    .section-subtitle { font-family: 'Inter', sans-serif; font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 540px; margin: 0 auto; }
+
+    /* ── Service Cards Grid ── */
+    .services-section { padding: 100px 28px; background: var(--surface); }
+    .services-inner { max-width: 1200px; margin: 0 auto; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+    .svc-card { background: #fff; border-radius: 20px; border: 1px solid var(--border); padding: 36px 32px; box-shadow: 0 2px 20px rgba(0,0,0,0.04); transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease; position: relative; overflow: hidden; }
+    .svc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--orange), var(--orange-light)); border-radius: 20px 20px 0 0; transform: scaleX(0); transform-origin: left; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .svc-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.09), 0 4px 16px rgba(249,115,22,0.08); }
+    .svc-card:hover::before { transform: scaleX(1); }
+    .svc-icon-wrap { width: 52px; height: 52px; border-radius: 14px; background: rgba(249,115,22,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transition: background 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1); }
+    .svc-card:hover .svc-icon-wrap { background: var(--orange); transform: scale(1.08); }
+    .svc-card:hover .svc-icon-wrap svg { stroke: #fff; }
+    .svc-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 18px; color: var(--charcoal-3); margin-bottom: 10px; letter-spacing: -0.01em; }
+    .svc-desc { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+    .svc-features { display: flex; flex-direction: column; gap: 7px; margin-bottom: 24px; }
+    .svc-feature { display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--mid); }
+    .svc-feature-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    .svc-link { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--orange); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s ease; }
+    .svc-link:hover { gap: 10px; }
+    .svc-link:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: 2px; }
+
+    /* ── Process Steps ── */
+    .process-section { padding: 100px 28px; background: #fff; }
+    .process-inner { max-width: 1100px; margin: 0 auto; }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 60px; position: relative; }
+    .process-steps::before { content: ''; position: absolute; top: 36px; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent); z-index: 0; }
+    .process-step { text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+    .step-num-wrap { width: 72px; height: 72px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+    .process-step:hover .step-num-wrap { background: var(--orange); border-color: var(--orange); transform: scale(1.1); }
+    .process-step:hover .step-num { color: #fff; }
+    .step-num { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 22px; color: var(--charcoal-3); transition: color 0.25s ease; }
+    .step-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 15px; color: var(--charcoal-3); margin-bottom: 8px; }
+    .step-desc { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── CTA Banner ── */
+    .cta-section { background: var(--charcoal); padding: 100px 28px; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; top: -100px; left: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 65%); pointer-events: none; }
+    .cta-section::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(253,186,116,0.07) 0%, transparent 65%); pointer-events: none; }
+    .cta-inner { max-width: 680px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .cta-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25); border-radius: 50px; padding: 6px 14px; margin-bottom: 24px; }
+    .cta-eyebrow span { font-size: 12px; font-weight: 600; color: var(--orange-light); letter-spacing: 0.06em; text-transform: uppercase; font-family: 'Inter', sans-serif; }
+    .cta-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.025em; color: #fff; margin-bottom: 18px; line-height: 1.1; }
+    .cta-title .accent { color: var(--orange); }
+    .cta-desc { font-family: 'Inter', sans-serif; font-size: 16px; color: #9CA3AF; line-height: 1.7; margin-bottom: 40px; }
+    .cta-btns { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    footer { background: var(--charcoal); padding: 60px 28px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand-desc { font-family: 'Inter', sans-serif; font-size: 14px; color: #6B7280; line-height: 1.7; margin-top: 12px; max-width: 280px; }
+    .footer-col-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; color: #E5E7EB; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-link { font-family: 'Inter', sans-serif; font-size: 14px; color: #6B7280; text-decoration: none; transition: color 0.2s ease; }
+    .footer-link:hover { color: var(--orange-light); }
+    .footer-link:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: 2px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-family: 'Inter', sans-serif; font-size: 13px; color: #4B5563; }
+
+    /* ── Scroll animations ── */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.4,0,0.2,1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-in { opacity: 0; transition: opacity 0.7s ease; }
+    .fade-in.visible { opacity: 1; }
+    .delay-1 { transition-delay: 80ms; }
+    .delay-2 { transition-delay: 160ms; }
+    .delay-3 { transition-delay: 240ms; }
+    .delay-4 { transition-delay: 320ms; }
+    .delay-5 { transition-delay: 400ms; }
+
+    /* ── Mobile ── */
+    .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 6px; border-radius: 6px; transition: background 0.2s ease; }
+    .mobile-menu-btn:hover { background: var(--surface); }
+    .mobile-menu-btn:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+    .mobile-nav { display: none; background: #fff; border-top: 1px solid var(--border); padding: 20px 28px 24px; }
+    .mobile-nav.open { display: flex; flex-direction: column; gap: 4px; }
+    .mobile-nav-link { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500; color: var(--charcoal-3); text-decoration: none; padding: 10px 0; border-bottom: 1px solid var(--border); transition: color 0.2s ease; }
+    .mobile-nav-link:last-child { border-bottom: none; }
+    .mobile-nav-link:hover { color: var(--orange); }
+
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .process-steps::before { display: none; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .process-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ░░░ TOPBAR ░░░ -->
+  <div class="topbar">
+    <div style="max-width:1280px; margin:0 auto; padding:0 28px; display:flex; justify-content:flex-end; align-items:center; gap:24px;">
+      <a href="mailto:support@justautomate.info" style="color:#6B7280; font-size:12px; font-family:'Inter',sans-serif; text-decoration:none; display:flex; align-items:center; gap:5px; transition:color 0.2s ease;" onmouseover="this.style.color='#FDBA74'" onmouseout="this.style.color='#6B7280'">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        support@justautomate.info
+      </a>
+      <a href="tel:4702512643" style="color:#6B7280; font-size:12px; font-family:'Inter',sans-serif; text-decoration:none; display:flex; align-items:center; gap:5px; transition:color 0.2s ease;" onmouseover="this.style.color='#FDBA74'" onmouseout="this.style.color='#6B7280'">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (470) 251-2643
+      </a>
+    </div>
+  </div>
+
+  <!-- ░░░ NAV ░░░ -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" style="display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0;" aria-label="Just Automate home">
+        <svg width="34" height="34" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F97316"/><stop offset="100%" style="stop-color:#FDBA74"/></linearGradient></defs>
+          <path d="M50,8 L54.5,18.5 C57.5,19.2 60.3,20.4 62.9,21.9 L73.8,17.5 L82.5,26.2 L78.1,37.1 C79.6,39.7 80.8,42.5 81.5,45.5 L92,50 L81.5,54.5 C80.8,57.5 79.6,60.3 78.1,62.9 L82.5,73.8 L73.8,82.5 L62.9,78.1 C60.3,79.6 57.5,80.8 54.5,81.5 L50,92 L45.5,81.5 C42.5,80.8 39.7,79.6 37.1,78.1 L26.2,82.5 L17.5,73.8 L21.9,62.9 C20.4,60.3 19.2,57.5 18.5,54.5 L8,50 L18.5,45.5 C19.2,42.5 20.4,39.7 21.9,37.1 L17.5,26.2 L26.2,17.5 L37.1,21.9 C39.7,20.4 42.5,19.2 45.5,18.5 Z" fill="url(#g1)"/>
+          <circle cx="50" cy="50" r="22" fill="#fff"/>
+          <circle cx="50" cy="50" r="14" fill="url(#g1)"/>
+          <path d="M42 50 L48 56 L60 43" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:17px; color:#0D1117; letter-spacing:-0.02em;">Just Automate</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="solutions.html" class="nav-link active">Solutions</a>
+        <a href="case-studies.html" class="nav-link">Case Studies</a>
+        <a href="free-resources.html" class="nav-link">Free Resources</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="book-a-workflow-audit.html" class="btn-primary" style="padding:10px 20px; font-size:13px;">
+          Book an Audit
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <button class="mobile-menu-btn" aria-label="Toggle menu" onclick="document.getElementById('mobileNav').classList.toggle('open')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F2937" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobileNav" class="mobile-nav">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="about.html" class="mobile-nav-link">About</a>
+      <a href="solutions.html" class="mobile-nav-link">Solutions</a>
+      <a href="case-studies.html" class="mobile-nav-link">Case Studies</a>
+      <a href="free-resources.html" class="mobile-nav-link">Free Resources</a>
+      <a href="book-a-workflow-audit.html" class="mobile-nav-link">Book an Audit</a>
+    </div>
+  </nav>
+
+  <!-- ░░░ PAGE HERO ░░░ -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FDBA74" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>What We Build</span>
+      </div>
+      <h1 class="fade-up delay-1">Everyday Systems.<br/><span class="accent">Intelligently Automated.</span></h1>
+      <p class="fade-up delay-2">From schools to real estate to clinics, our automations simplify your operations, eliminate repetitive work, and help your team move faster, without extra software or complexity.</p>
+      <div style="display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;" class="fade-up delay-3">
+        <a href="book-a-workflow-audit.html" class="btn-primary">
+          Book a Free Audit
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="case-studies.html" class="btn-ghost-light">See Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░░ SERVICES GRID ░░░ -->
+  <section class="services-section">
+    <div class="services-inner">
+      <div style="text-align:center;" class="fade-up">
+        <span class="section-eyebrow">Our Services</span>
+        <h2 class="section-title">Six Core Automation Systems</h2>
+        <p class="section-subtitle">Each solution is purpose-built for your industry, not a generic template, but a real workflow designed around how your business actually operates.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- Card 1: SafeLane / School Pickup -->
+        <div class="svc-card fade-up">
+          <div class="svc-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="svc-title">School Pickup Systems</h3>
+          <p class="svc-desc">SafeLane uses phone-based parent check-in, real-time staff queues, and safe dismissal. Eliminate paper lists and chaotic car lines for good.</p>
+          <div class="svc-features">
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Digital parent check-in via phone</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Live staff queue dashboard</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Google Sheets attendance sync</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>End-of-day summary reports</div>
+          </div>
+          <a href="case-studies.html" class="svc-link">
+            See the case study
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 2: Real Estate -->
+        <div class="svc-card fade-up delay-1">
+          <div class="svc-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3 class="svc-title">Real Estate Contract Flows</h3>
+          <p class="svc-desc">Contract prep, e-signatures, document tracking, all automated. Turnaround goes from days to hours so agents can focus on closing.</p>
+          <div class="svc-features">
+            <div class="svc-feature"><div class="svc-feature-dot"></div>GAR contract auto-generation</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Automated e-signature sending</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Gmail &amp; Copilot follow-ups</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Notion deal tracking</div>
+          </div>
+          <a href="case-studies.html" class="svc-link">
+            See the case study
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 3: Clinic SOAP -->
+        <div class="svc-card fade-up delay-2">
+          <div class="svc-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3 class="svc-title">Clinic SOAP Note Automation</h3>
+          <p class="svc-desc">SOAP note creation, patient follow-ups, and reminders, handled automatically. Give practitioners their time back and keep care consistent.</p>
+          <div class="svc-features">
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Digital SOAP note entry</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>AI-generated follow-up messages</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Google Calendar scheduling</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Weekly performance dashboard</div>
+          </div>
+          <a href="case-studies.html" class="svc-link">
+            See the case study
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 4: CRM Follow-Up -->
+        <div class="svc-card fade-up delay-3">
+          <div class="svc-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <h3 class="svc-title">CRM Follow-Up Sequences</h3>
+          <p class="svc-desc">Automated follow-ups, reminders, and status updates that run in the background, so no lead or client ever falls through the cracks.</p>
+          <div class="svc-features">
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Multi-step drip sequences</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>AI-personalized messages</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>CRM status auto-updates</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Deal stage notifications</div>
+          </div>
+          <a href="book-a-workflow-audit.html" class="svc-link">
+            Get a custom flow
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 5: Form-to-Dashboard -->
+        <div class="svc-card fade-up delay-4">
+          <div class="svc-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <h3 class="svc-title">Form-to-Dashboard Integrations</h3>
+          <p class="svc-desc">Tally, Typeform, and Google Forms piped directly into live dashboards. See your data move in real time, no copy-paste, no lag.</p>
+          <div class="svc-features">
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Tally / Typeform / Google Forms</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Live Google Sheets dashboards</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Automated data cleaning</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Slack / email alerts on submit</div>
+          </div>
+          <a href="book-a-workflow-audit.html" class="svc-link">
+            Get a custom flow
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 6: Live Dashboards -->
+        <div class="svc-card fade-up delay-5">
+          <div class="svc-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="svc-title">Live Dashboards for Teams</h3>
+          <p class="svc-desc">Multi-tool data synced into one interactive KPI dashboard. Every number your team needs, always current, always visible.</p>
+          <div class="svc-features">
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Multi-source data aggregation</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Interactive KPI views</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Auto-refresh on schedule</div>
+            <div class="svc-feature"><div class="svc-feature-dot"></div>Shareable team links</div>
+          </div>
+          <a href="book-a-workflow-audit.html" class="svc-link">
+            Get a custom flow
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░░ PROCESS ░░░ -->
+  <section class="process-section">
+    <div class="process-inner">
+      <div style="text-align:center;" class="fade-up">
+        <span class="section-eyebrow">How It Works</span>
+        <h2 class="section-title">Four Steps to Use Our Services</h2>
+        <p class="section-subtitle">Automation doesn't have to be complicated, we make it simple, structured, and stress-free.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step fade-up">
+          <div class="step-num-wrap">
+            <span class="step-num">1</span>
+          </div>
+          <h4 class="step-title">Contact Us</h4>
+          <p class="step-desc">Tell us about your current processes, the bottlenecks you're hitting, and what outcomes matter most to you.</p>
+        </div>
+        <div class="process-step fade-up delay-1">
+          <div class="step-num-wrap">
+            <span class="step-num">2</span>
+          </div>
+          <h4 class="step-title">Get a Consultation</h4>
+          <p class="step-desc">We run a strategy call mapping out tools, integrations, and exactly how much time your team stands to save.</p>
+        </div>
+        <div class="process-step fade-up delay-2">
+          <div class="step-num-wrap">
+            <span class="step-num">3</span>
+          </div>
+          <h4 class="step-title">Set Up Just Automate</h4>
+          <p class="step-desc">Our team configures your automations, connects your apps, and tests everything before it ever goes live.</p>
+        </div>
+        <div class="process-step fade-up delay-3">
+          <div class="step-num-wrap">
+            <span class="step-num">4</span>
+          </div>
+          <h4 class="step-title">Enjoy Your Automation</h4>
+          <p class="step-desc">Faster operations, fewer manual steps, and a team that finally has bandwidth to focus on what actually matters.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░░ CTA BANNER ░░░ -->
+  <section class="cta-section">
+    <div class="cta-inner fade-up">
+      <div class="cta-eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FDBA74" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Custom Use Cases Welcome</span>
+      </div>
+      <h2 class="cta-title">Don't see your use case?<br/>Book a consult, <span class="accent">we'll map it out.</span></h2>
+      <p class="cta-desc">Every business has unique workflows. If you don't see your exact industry above, reach out, we've built automations for over a dozen verticals and counting.</p>
+      <div class="cta-btns">
+        <a href="book-a-workflow-audit.html" class="btn-primary">
+          Contact Us
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="free-resources.html" class="btn-ghost-light">Free Resources</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░░ FOOTER ░░░ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <svg width="30" height="30" viewBox="0 0 100 100">
+              <defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F97316"/><stop offset="100%" style="stop-color:#FDBA74"/></linearGradient></defs>
+              <path d="M50,8 L54.5,18.5 C57.5,19.2 60.3,20.4 62.9,21.9 L73.8,17.5 L82.5,26.2 L78.1,37.1 C79.6,39.7 80.8,42.5 81.5,45.5 L92,50 L81.5,54.5 C80.8,57.5 79.6,60.3 78.1,62.9 L82.5,73.8 L73.8,82.5 L62.9,78.1 C60.3,79.6 57.5,80.8 54.5,81.5 L50,92 L45.5,81.5 C42.5,80.8 39.7,79.6 37.1,78.1 L26.2,82.5 L17.5,73.8 L21.9,62.9 C20.4,60.3 19.2,57.5 18.5,54.5 L8,50 L18.5,45.5 C19.2,42.5 20.4,39.7 21.9,37.1 L17.5,26.2 L26.2,17.5 L37.1,21.9 C39.7,20.4 42.5,19.2 45.5,18.5 Z" fill="url(#g2)"/>
+              <circle cx="50" cy="50" r="18" fill="#0D1117"/>
+              <circle cx="50" cy="50" r="12" fill="url(#g2)"/>
+              <path d="M43 50 L49 56 L59 43" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:17px; color:#fff; letter-spacing:-0.02em;">Just Automate</span>
+          </div>
+          <p class="footer-brand-desc">Automation without the overwhelm. We build simple, scalable, smart systems for schools, real estate, and clinics.</p>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Solutions</h5>
+          <div class="footer-links">
+            <a href="solutions.html" class="footer-link">School Pickup Systems</a>
+            <a href="solutions.html" class="footer-link">Real Estate Automation</a>
+            <a href="solutions.html" class="footer-link">Clinic SOAP Flows</a>
+            <a href="solutions.html" class="footer-link">CRM Follow-Ups</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Company</h5>
+          <div class="footer-links">
+            <a href="about.html" class="footer-link">About the Creator</a>
+            <a href="case-studies.html" class="footer-link">Case Studies</a>
+            <a href="free-resources.html" class="footer-link">Free Resources</a>
+            <a href="book-a-workflow-audit.html" class="footer-link">Book an Audit</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Contact</h5>
+          <div class="footer-links">
+            <a href="mailto:support@justautomate.info" class="footer-link">support@justautomate.info</a>
+            <a href="tel:4702512643" class="footer-link">(470) 251-2643</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Just Automate. All rights reserved.</p>
+        <div style="display:flex; gap:20px;">
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up, .fade-in').forEach(el => observer.observe(el));
+    setTimeout(() => {
+      document.querySelectorAll('.page-hero .fade-up, .page-hero .fade-in').forEach(el => el.classList.add('visible'));
+    }, 80);
+  </script>
+</body>
+</html>

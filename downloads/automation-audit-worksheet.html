@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Automation Audit Worksheet | Just Automate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #F97316;
+      --orange-light: #FDBA74;
+      --charcoal: #0D1117;
+      --charcoal-3: #1F2937;
+      --mid: #4B5563;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --surface: #F8FAFC;
+    }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--charcoal-3); max-width: 780px; margin: 0 auto; padding: 48px 40px 80px; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* Header */
+    .doc-header { border-bottom: 3px solid var(--orange); padding-bottom: 28px; margin-bottom: 40px; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+    .logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; color: var(--charcoal); letter-spacing: -0.02em; }
+    .doc-title { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--charcoal); letter-spacing: -0.025em; line-height: 1.15; }
+    .doc-subtitle { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+    .score-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; text-align: center; flex-shrink: 0; min-width: 130px; }
+    .score-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .score-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 36px; font-weight: 800; color: var(--orange); line-height: 1; }
+    .score-denom { font-size: 16px; color: var(--muted); font-weight: 400; }
+
+    /* Intro */
+    .intro-box { background: var(--surface); border-left: 4px solid var(--orange); border-radius: 0 10px 10px 0; padding: 16px 20px; margin-bottom: 36px; }
+    .intro-box p { font-size: 14px; color: var(--mid); line-height: 1.7; }
+
+    /* Section */
+    .section { margin-bottom: 40px; }
+    .section-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* Question */
+    .question { margin-bottom: 22px; }
+    .q-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+    .q-num { width: 26px; height: 26px; border-radius: 50%; background: var(--orange); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .q-text { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: var(--charcoal-3); line-height: 1.55; }
+    .q-hint { font-size: 12px; color: var(--muted); margin-bottom: 10px; padding-left: 38px; font-style: italic; }
+    .answer-line { border: none; border-bottom: 1.5px solid var(--border); width: 100%; margin-bottom: 6px; height: 28px; display: block; background: transparent; }
+    .options-row { display: flex; flex-wrap: wrap; gap: 8px; padding-left: 38px; }
+    .option { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--mid); }
+    .option input[type="radio"], .option input[type="checkbox"] { accent-color: var(--orange); width: 15px; height: 15px; }
+
+    /* Points */
+    .points-row { display: flex; gap: 8px; padding-left: 38px; margin-top: 4px; }
+    .point-opt { border: 1.5px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 13px; color: var(--mid); display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 80px; text-align: center; }
+    .point-opt input { accent-color: var(--orange); }
+    .point-val { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 11px; color: var(--orange); }
+
+    /* Score guide */
+    .score-guide { margin-top: 48px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .score-guide-title { background: var(--charcoal); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14px; padding: 14px 20px; }
+    .score-band { display: grid; grid-template-columns: 100px 1fr; border-bottom: 1px solid var(--border); }
+    .score-band:last-child { border-bottom: none; }
+    .band-range { padding: 14px 16px; background: var(--surface); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 15px; color: var(--orange); border-right: 1px solid var(--border); display: flex; align-items: center; }
+    .band-desc { padding: 14px 16px; }
+    .band-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; color: var(--charcoal-3); margin-bottom: 3px; }
+    .band-text { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+    /* Footer */
+    .doc-footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-brand { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; color: var(--charcoal-3); }
+    .footer-contact { font-size: 12px; color: var(--muted); }
+
+    /* Print */
+    .print-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; padding: 10px 20px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; margin-bottom: 36px; }
+    .print-btn:hover { background: #EA6C0A; }
+
+    @media print {
+      .print-btn { display: none; }
+      body { padding: 20px; }
+      .answer-line { border-bottom: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn" onclick="window.print()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Print / Save as PDF
+  </button>
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div>
+      <div class="logo-row">
+        <svg width="28" height="28" viewBox="0 0 100 100">
+          <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F97316"/><stop offset="100%" style="stop-color:#FDBA74"/></linearGradient></defs>
+          <path d="M50,8 L54.5,18.5 C57.5,19.2 60.3,20.4 62.9,21.9 L73.8,17.5 L82.5,26.2 L78.1,37.1 C79.6,39.7 80.8,42.5 81.5,45.5 L92,50 L81.5,54.5 C80.8,57.5 79.6,60.3 78.1,62.9 L82.5,73.8 L73.8,82.5 L62.9,78.1 C60.3,79.6 57.5,80.8 54.5,81.5 L50,92 L45.5,81.5 C42.5,80.8 39.7,79.6 37.1,78.1 L26.2,82.5 L17.5,73.8 L21.9,62.9 C20.4,60.3 19.2,57.5 18.5,54.5 L8,50 L18.5,45.5 C19.2,42.5 20.4,39.7 21.9,37.1 L17.5,26.2 L26.2,17.5 L37.1,21.9 C39.7,20.4 42.5,19.2 45.5,18.5 Z" fill="url(#g1)"/>
+          <circle cx="50" cy="50" r="22" fill="#fff"/>
+          <circle cx="50" cy="50" r="14" fill="url(#g1)"/>
+          <path d="M42 50 L48 56 L60 43" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="logo-text">Just Automate</span>
+      </div>
+      <h1 class="doc-title">Automation Audit Worksheet</h1>
+      <p class="doc-subtitle">Answer each question honestly. Tally your score at the end to see<br/>where automation can save your business the most time.</p>
+    </div>
+    <div class="score-box">
+      <p class="score-label">Your Score</p>
+      <p class="score-value">__<span class="score-denom">/50</span></p>
+    </div>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro-box">
+    <p><strong>How to use this worksheet:</strong> Each question is worth up to 5 points. Circle or check the option that best describes your current situation. Add up your total at the end and use the score guide to identify your biggest automation opportunities.</p>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section">
+    <p class="section-label">Section 1: Daily Operations</p>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">1</div>
+        <p class="q-text">How many hours per day does your team spend on repetitive manual tasks (data entry, copy-paste, email follow-ups)?</p>
+      </div>
+      <div class="points-row">
+        <div class="point-opt"><input type="radio" name="q1"/><span>Less than 1 hr</span><span class="point-val">1 pt</span></div>
+        <div class="point-opt"><input type="radio" name="q1"/><span>1–2 hrs</span><span class="point-val">2 pts</span></div>
+        <div class="point-opt"><input type="radio" name="q1"/><span>3–4 hrs</span><span class="point-val">3 pts</span></div>
+        <div class="point-opt"><input type="radio" name="q1"/><span>5+ hrs</span><span class="point-val">5 pts</span></div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">2</div>
+        <p class="q-text">How often do leads, clients, or tasks fall through the cracks because of a manual process?</p>
+      </div>
+      <div class="points-row">
+        <div class="point-opt"><input type="radio" name="q2"/><span>Rarely / never</span><span class="point-val">1 pt</span></div>
+        <div class="point-opt"><input type="radio" name="q2"/><span>Once a month</span><span class="point-val">2 pts</span></div>
+        <div class="point-opt"><input type="radio" name="q2"/><span>Once a week</span><span class="point-val">4 pts</span></div>
+        <div class="point-opt"><input type="radio" name="q2"/><span>Daily</span><span class="point-val">5 pts</span></div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">3</div>
+        <p class="q-text">Does your team manually move information between tools (e.g., copy from a form into a spreadsheet or CRM)?</p>
+      </div>
+      <div class="options-row">
+        <label class="option"><input type="radio" name="q3"/> No, it syncs automatically (0 pts)</label>
+        <label class="option"><input type="radio" name="q3"/> Sometimes (2 pts)</label>
+        <label class="option"><input type="radio" name="q3"/> Yes, frequently (5 pts)</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="section">
+    <p class="section-label">Section 2: Communication & Follow-Up</p>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">4</div>
+        <p class="q-text">How do you currently handle follow-up emails or messages to clients/leads?</p>
+      </div>
+      <div class="options-row">
+        <label class="option"><input type="radio" name="q4"/> Fully automated sequences (0 pts)</label>
+        <label class="option"><input type="radio" name="q4"/> Templates, but sent manually (2 pts)</label>
+        <label class="option"><input type="radio" name="q4"/> Written from scratch each time (5 pts)</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">5</div>
+        <p class="q-text">Do clients or customers ever complain about slow responses or missed follow-ups?</p>
+      </div>
+      <div class="options-row">
+        <label class="option"><input type="radio" name="q5"/> Never (0 pts)</label>
+        <label class="option"><input type="radio" name="q5"/> Occasionally (2 pts)</label>
+        <label class="option"><input type="radio" name="q5"/> Regularly (5 pts)</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">6</div>
+        <p class="q-text">How are appointment reminders or scheduling confirmations sent?</p>
+      </div>
+      <div class="options-row">
+        <label class="option"><input type="radio" name="q6"/> Automated (0 pts)</label>
+        <label class="option"><input type="radio" name="q6"/> Mix of automated and manual (2 pts)</label>
+        <label class="option"><input type="radio" name="q6"/> All manual (5 pts)</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="section">
+    <p class="section-label">Section 3: Data & Reporting</p>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">7</div>
+        <p class="q-text">How do you generate reports or track KPIs for your business?</p>
+      </div>
+      <div class="options-row">
+        <label class="option"><input type="radio" name="q7"/> Live dashboards that update automatically (0 pts)</label>
+        <label class="option"><input type="radio" name="q7"/> I pull data manually into spreadsheets (3 pts)</label>
+        <label class="option"><input type="radio" name="q7"/> We don't have consistent reporting (5 pts)</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">8</div>
+        <p class="q-text">How long does it take to produce a weekly or monthly summary report?</p>
+      </div>
+      <div class="points-row">
+        <div class="point-opt"><input type="radio" name="q8"/><span>It's automatic</span><span class="point-val">0 pts</span></div>
+        <div class="point-opt"><input type="radio" name="q8"/><span>Under 30 min</span><span class="point-val">1 pt</span></div>
+        <div class="point-opt"><input type="radio" name="q8"/><span>1–2 hrs</span><span class="point-val">3 pts</span></div>
+        <div class="point-opt"><input type="radio" name="q8"/><span>Half a day+</span><span class="point-val">5 pts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="section">
+    <p class="section-label">Section 4: Documents & Workflows</p>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">9</div>
+        <p class="q-text">How are documents like contracts, invoices, or intake forms created and sent?</p>
+      </div>
+      <div class="options-row">
+        <label class="option"><input type="radio" name="q9"/> Auto-generated from a template (0 pts)</label>
+        <label class="option"><input type="radio" name="q9"/> Template + manual editing each time (3 pts)</label>
+        <label class="option"><input type="radio" name="q9"/> Created from scratch manually (5 pts)</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="q-row">
+        <div class="q-num">10</div>
+        <p class="q-text">Is there a step in your workflow that you repeatedly do yourself because it hasn't been handed off or automated yet?</p>
+      </div>
+      <div class="options-row">
+        <label class="option"><input type="radio" name="q10"/> No, everything is delegated or automated (0 pts)</label>
+        <label class="option"><input type="radio" name="q10"/> One or two things (3 pts)</label>
+        <label class="option"><input type="radio" name="q10"/> Yes, multiple things (5 pts)</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Score guide -->
+  <div class="score-guide">
+    <div class="score-guide-title">Score Guide: What Your Results Mean</div>
+    <div class="score-band">
+      <div class="band-range">0–10</div>
+      <div class="band-desc">
+        <p class="band-title">Well Optimized</p>
+        <p class="band-text">Your operations are fairly streamlined. Focus on fine-tuning existing automations and expanding where possible.</p>
+      </div>
+    </div>
+    <div class="score-band">
+      <div class="band-range">11–25</div>
+      <div class="band-desc">
+        <p class="band-title">Strong Automation Potential</p>
+        <p class="band-text">There are clear gaps where automation can save you 5–15 hours per week. Book a free audit to identify the quickest wins.</p>
+      </div>
+    </div>
+    <div class="score-band">
+      <div class="band-range">26–40</div>
+      <div class="band-desc">
+        <p class="band-title">High Impact Opportunity</p>
+        <p class="band-text">Your team is spending significant time on tasks automation can handle. A structured workflow overhaul could save 15–30 hours per week.</p>
+      </div>
+    </div>
+    <div class="score-band">
+      <div class="band-range">41–50</div>
+      <div class="band-desc">
+        <p class="band-title">Automation Ready</p>
+        <p class="band-text">Your business is leaving major time and money on the table. Let's talk immediately, the ROI on automation here is extremely high.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <div>
+      <p class="footer-brand">Just Automate</p>
+      <p class="footer-contact">support@justautomate.info &nbsp;|&nbsp; (470) 251-2643 &nbsp;|&nbsp; justautomate.tech</p>
+    </div>
+    <a href="../book-a-workflow-audit.html" style="display:inline-flex; align-items:center; gap:7px; background:#F97316; color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:13px; padding:10px 18px; border-radius:50px; text-decoration:none;">
+      Book a Free Audit
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+</body>
+</html>

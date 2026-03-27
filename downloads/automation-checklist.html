@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automation Checklist for Business Owners | Just Automate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #F97316;
+      --orange-light: #FDBA74;
+      --charcoal: #0D1117;
+      --charcoal-2: #161B22;
+      --charcoal-3: #1F2937;
+      --mid: #4B5563;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --surface: #F8FAFC;
+    }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--charcoal-3); max-width: 780px; margin: 0 auto; padding: 48px 40px 80px; }
+    h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* Header */
+    .doc-header { padding-bottom: 28px; margin-bottom: 36px; border-bottom: 3px solid var(--orange); }
+    .logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; color: var(--charcoal); letter-spacing: -0.02em; }
+    .doc-title { font-size: clamp(22px, 4vw, 32px); font-weight: 800; color: var(--charcoal); letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 8px; }
+    .doc-subtitle { font-size: 14px; color: var(--muted); line-height: 1.65; max-width: 560px; }
+
+    /* Print btn */
+    .print-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; padding: 10px 20px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; margin-bottom: 36px; }
+    .print-btn:hover { background: #EA6C0A; }
+
+    /* Intro */
+    .intro-box { background: var(--surface); border-left: 4px solid var(--orange); border-radius: 0 10px 10px 0; padding: 16px 20px; margin-bottom: 40px; }
+    .intro-box p { font-size: 14px; color: var(--mid); line-height: 1.7; }
+
+    /* Step */
+    .step { margin-bottom: 44px; }
+    .step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .step-num { width: 44px; height: 44px; border-radius: 12px; background: var(--orange); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px; color: var(--charcoal-3); letter-spacing: -0.01em; }
+    .step-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; padding-left: 58px; }
+
+    /* Checklist items */
+    .checklist { display: flex; flex-direction: column; gap: 10px; padding-left: 58px; }
+    .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 10px; transition: border-color 0.2s; }
+    .check-item:hover { border-color: rgba(249,115,22,0.35); }
+    .check-box { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; }
+    .check-box.done { background: var(--orange); border-color: var(--orange); }
+    .check-box.done::after { content: ''; width: 10px; height: 6px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translateY(-1px); display: block; }
+    .check-content { flex: 1; }
+    .check-label { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: var(--charcoal-3); margin-bottom: 3px; }
+    .check-sub { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .check-tools { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .tool-tag { background: var(--surface); border: 1px solid var(--border); border-radius: 50px; padding: 2px 10px; font-size: 11px; font-weight: 600; color: var(--mid); }
+
+    /* Notes area */
+    .notes-area { margin-top: 14px; padding-left: 58px; }
+    .notes-label { font-size: 11px; font-weight: 600; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+    .notes-lines { display: flex; flex-direction: column; gap: 8px; }
+    .notes-line { border-bottom: 1.5px solid var(--border); height: 28px; width: 100%; }
+
+    /* Progress tracker */
+    .progress-tracker { background: var(--charcoal); border-radius: 16px; padding: 28px 32px; margin-bottom: 40px; color: #fff; }
+    .progress-tracker h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: #fff; margin-bottom: 6px; }
+    .progress-tracker p { font-size: 13px; color: #9CA3AF; margin-bottom: 20px; }
+    .progress-cols { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .progress-col { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 10px; text-align: center; }
+    .progress-step { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 11px; color: var(--orange-light); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px; }
+    .progress-date-line { border-bottom: 1px solid rgba(255,255,255,0.12); width: 80%; margin: 0 auto 4px; height: 20px; }
+    .progress-date-label { font-size: 10px; color: #6B7280; }
+
+    /* Divider */
+    .step-divider { border: none; border-top: 1px dashed var(--border); margin: 8px 0 36px 58px; }
+
+    /* Footer */
+    .doc-footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-brand { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; color: var(--charcoal-3); }
+    .footer-contact { font-size: 12px; color: var(--muted); }
+
+    @media print {
+      .print-btn { display: none; }
+      body { padding: 20px; }
+      .check-item { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn" onclick="window.print()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Print / Save as PDF
+  </button>
+
+  <!-- Header -->
+  <div class="doc-header">
+    <div class="logo-row">
+      <svg width="28" height="28" viewBox="0 0 100 100">
+        <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F97316"/><stop offset="100%" style="stop-color:#FDBA74"/></linearGradient></defs>
+        <path d="M50,8 L54.5,18.5 C57.5,19.2 60.3,20.4 62.9,21.9 L73.8,17.5 L82.5,26.2 L78.1,37.1 C79.6,39.7 80.8,42.5 81.5,45.5 L92,50 L81.5,54.5 C80.8,57.5 79.6,60.3 78.1,62.9 L82.5,73.8 L73.8,82.5 L62.9,78.1 C60.3,79.6 57.5,80.8 54.5,81.5 L50,92 L45.5,81.5 C42.5,80.8 39.7,79.6 37.1,78.1 L26.2,82.5 L17.5,73.8 L21.9,62.9 C20.4,60.3 19.2,57.5 18.5,54.5 L8,50 L18.5,45.5 C19.2,42.5 20.4,39.7 21.9,37.1 L17.5,26.2 L26.2,17.5 L37.1,21.9 C39.7,20.4 42.5,19.2 45.5,18.5 Z" fill="url(#g1)"/>
+        <circle cx="50" cy="50" r="22" fill="#fff"/>
+        <circle cx="50" cy="50" r="14" fill="url(#g1)"/>
+        <path d="M42 50 L48 56 L60 43" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="logo-text">Just Automate</span>
+    </div>
+    <h1 class="doc-title">Automation Checklist for Business Owners</h1>
+    <p class="doc-subtitle">A practical 5-step guide to identifying and implementing your first automations, even if you have no technical background.</p>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro-box">
+    <p><strong>How to use this checklist:</strong> Work through each step in order. Check off each item as you complete it. Use the notes lines to write down your specific tools, pain points, or next actions. You don't have to do everything at once, start with one step and build momentum.</p>
+  </div>
+
+  <!-- Progress tracker -->
+  <div class="progress-tracker">
+    <h3>Your Automation Progress Tracker</h3>
+    <p>Write the date when you complete each step.</p>
+    <div class="progress-cols">
+      <div class="progress-col">
+        <p class="progress-step">Step 1</p>
+        <div class="progress-date-line"></div>
+        <p class="progress-date-label">Date completed</p>
+      </div>
+      <div class="progress-col">
+        <p class="progress-step">Step 2</p>
+        <div class="progress-date-line"></div>
+        <p class="progress-date-label">Date completed</p>
+      </div>
+      <div class="progress-col">
+        <p class="progress-step">Step 3</p>
+        <div class="progress-date-line"></div>
+        <p class="progress-date-label">Date completed</p>
+      </div>
+      <div class="progress-col">
+        <p class="progress-step">Step 4</p>
+        <div class="progress-date-line"></div>
+        <p class="progress-date-label">Date completed</p>
+      </div>
+      <div class="progress-col">
+        <p class="progress-step">Step 5</p>
+        <div class="progress-date-line"></div>
+        <p class="progress-date-label">Date completed</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <h2 class="step-title">Audit Your Repetitive Tasks</h2>
+    </div>
+    <p class="step-desc">Before you automate anything, you need to know what's actually eating your time. Spend 30 minutes writing down every task you or your team does more than once a week.</p>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">List every task you do manually more than once a week</p>
+          <p class="check-sub">Include anything you copy-paste, retype, or send from scratch repeatedly.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Estimate the time each task takes per week</p>
+          <p class="check-sub">Even a rough estimate helps you see where the biggest time drains are.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Rank your top 3 most painful or time-consuming tasks</p>
+          <p class="check-sub">These are your first automation targets.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Note which tools are involved in each task</p>
+          <p class="check-sub">Email, spreadsheets, CRM, forms, calendar, etc.</p>
+          <div class="check-tools">
+            <span class="tool-tag">Gmail / Outlook</span>
+            <span class="tool-tag">Google Sheets</span>
+            <span class="tool-tag">CRM</span>
+            <span class="tool-tag">Forms</span>
+            <span class="tool-tag">Calendar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-area">
+      <p class="notes-label">My top 3 tasks to automate:</p>
+      <div class="notes-lines">
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+  </div>
+  <hr class="step-divider"/>
+
+  <!-- Step 2 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <h2 class="step-title">Connect Lead Capture to Your CRM</h2>
+    </div>
+    <p class="step-desc">Every lead that comes in through a form, ad, or website should automatically land in your CRM, tagged and ready for follow-up, without anyone touching it manually.</p>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Identify where new leads come from (forms, ads, referrals, etc.)</p>
+          <p class="check-sub">You need to know the entry points before you can connect them.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Set up a form tool that connects to your CRM (Tally, Typeform, or Google Forms)</p>
+          <p class="check-sub">Most modern CRMs have direct integrations or Zapier/Make connections.</p>
+          <div class="check-tools">
+            <span class="tool-tag">Tally</span>
+            <span class="tool-tag">Typeform</span>
+            <span class="tool-tag">Google Forms</span>
+            <span class="tool-tag">Zapier</span>
+            <span class="tool-tag">Make</span>
+          </div>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Test the connection by submitting a test lead</p>
+          <p class="check-sub">Confirm it shows up in your CRM with the correct fields populated.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Set up an automatic confirmation email to the new lead</p>
+          <p class="check-sub">Even a simple "Thanks, we'll be in touch" builds trust immediately.</p>
+        </div>
+      </div>
+    </div>
+    <div class="notes-area">
+      <p class="notes-label">My lead capture tools and CRM:</p>
+      <div class="notes-lines">
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+  </div>
+  <hr class="step-divider"/>
+
+  <!-- Step 3 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <h2 class="step-title">Automate Invoicing and Accounting Sync</h2>
+    </div>
+    <p class="step-desc">Manually creating invoices and entering them into accounting software is one of the biggest time sinks for small businesses. This step closes that loop.</p>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Choose an invoicing tool that has automation support</p>
+          <div class="check-tools">
+            <span class="tool-tag">QuickBooks</span>
+            <span class="tool-tag">FreshBooks</span>
+            <span class="tool-tag">Wave</span>
+            <span class="tool-tag">Stripe</span>
+            <span class="tool-tag">PayPal</span>
+          </div>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Create a trigger that auto-generates an invoice when a job or project is marked complete</p>
+          <p class="check-sub">This can be based on CRM status, a form submission, or a calendar event.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Set up automatic payment reminders (3 days before, day of, 3 days after)</p>
+          <p class="check-sub">Most invoicing tools have this built in. Just turn it on.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Connect invoicing tool to your accounting software</p>
+          <p class="check-sub">Payments should sync automatically, no manual entry.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="step-divider"/>
+
+  <!-- Step 4 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <h2 class="step-title">Build Client Follow-Up Templates</h2>
+    </div>
+    <p class="step-desc">A good follow-up sequence keeps clients engaged without you writing a single email from scratch. Set this up once and it runs forever.</p>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Write a 3-email follow-up sequence for new leads</p>
+          <p class="check-sub">Email 1: Immediate response. Email 2: Value add (3 days later). Email 3: Check-in (7 days later).</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Load the sequence into your email or CRM automation tool</p>
+          <div class="check-tools">
+            <span class="tool-tag">Mailchimp</span>
+            <span class="tool-tag">HubSpot</span>
+            <span class="tool-tag">ActiveCampaign</span>
+            <span class="tool-tag">Copilot Studio</span>
+          </div>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Set up a post-service follow-up (review request or satisfaction check)</p>
+          <p class="check-sub">Triggered automatically when a job is marked complete in your CRM.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Test each email by running through the sequence yourself first</p>
+          <p class="check-sub">Check timing, personalization fields, and links before going live.</p>
+        </div>
+      </div>
+    </div>
+    <div class="notes-area">
+      <p class="notes-label">My email tool / sequence notes:</p>
+      <div class="notes-lines">
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+  </div>
+  <hr class="step-divider"/>
+
+  <!-- Step 5 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <h2 class="step-title">Set Up Reporting and Dashboard Automation</h2>
+    </div>
+    <p class="step-desc">Stop pulling numbers manually. A live dashboard means you always know how your business is performing without running a single report.</p>
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Decide on the 5–7 KPIs that matter most to your business</p>
+          <p class="check-sub">Examples: leads per week, close rate, revenue, average response time, client satisfaction.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Connect your data sources to a Google Sheet or dashboard tool</p>
+          <div class="check-tools">
+            <span class="tool-tag">Google Sheets</span>
+            <span class="tool-tag">Notion</span>
+            <span class="tool-tag">Looker Studio</span>
+            <span class="tool-tag">Airtable</span>
+          </div>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Set up an automated weekly summary email to yourself</p>
+          <p class="check-sub">A simple email every Monday morning with your top numbers, no logging in required.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-content">
+          <p class="check-label">Share the dashboard with your team or key stakeholders</p>
+          <p class="check-sub">Everyone should see the same numbers, in real time, from a single source of truth.</p>
+        </div>
+      </div>
+    </div>
+    <div class="notes-area">
+      <p class="notes-label">My 5 key KPIs:</p>
+      <div class="notes-lines">
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <div>
+      <p class="footer-brand">Just Automate</p>
+      <p class="footer-contact">support@justautomate.info &nbsp;|&nbsp; (470) 251-2643 &nbsp;|&nbsp; justautomate.tech</p>
+    </div>
+    <a href="../book-a-workflow-audit.html" style="display:inline-flex; align-items:center; gap:7px; background:#F97316; color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:13px; padding:10px 18px; border-radius:50px; text-decoration:none;">
+      Book a Free Audit
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+</body>
+</html>

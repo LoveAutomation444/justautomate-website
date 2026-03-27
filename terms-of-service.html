@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service | Just Automate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #F97316;
+      --orange-light: #FDBA74;
+      --orange-dark: #EA6C0A;
+      --charcoal: #0D1117;
+      --charcoal-2: #161B22;
+      --charcoal-3: #1F2937;
+      --charcoal-4: #374151;
+      --mid: #4B5563;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --surface: #F8FAFC;
+      --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--surface); color: var(--charcoal-3); overflow-x: hidden; }
+    h1, h2, h3, h4, h5 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* ── Topbar ── */
+    .topbar { background: var(--charcoal); padding: 9px 0; }
+
+    /* ── Nav ── */
+    nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(229,231,235,0.8); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 20px rgba(0,0,0,0.06); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-link { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--charcoal-3); text-decoration: none; padding: 6px 0; position: relative; transition: color 0.2s ease; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--orange); border-radius: 1px; transform: scaleX(0); transform-origin: left; transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
+    .nav-link:hover { color: var(--orange); }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14px; padding: 13px 26px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: background 0.2s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(249,115,22,0.35); white-space: nowrap; }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,0.45); }
+
+    /* ── Mobile nav ── */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--charcoal-3); border-radius: 2px; transition: all 0.3s ease; }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); z-index: 200; flex-direction: column; align-items: center; justify-content: center; gap: 28px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .nav-link { font-size: 22px; font-weight: 600; }
+    .mobile-close { position: absolute; top: 20px; right: 24px; background: none; border: none; cursor: pointer; font-size: 28px; color: var(--charcoal-3); }
+
+    /* ── Hero ── */
+    .page-hero { background: var(--charcoal); padding: 80px 28px 90px; position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 65%); pointer-events: none; }
+    .page-hero-inner { max-width: 780px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25); border-radius: 50px; padding: 6px 14px; margin-bottom: 24px; }
+    .hero-eyebrow span { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: var(--orange-light); letter-spacing: 0.06em; text-transform: uppercase; }
+    .page-hero h1 { font-size: clamp(32px, 4vw, 48px); font-weight: 800; line-height: 1.12; letter-spacing: -0.03em; color: #fff; margin-bottom: 18px; }
+    .page-hero p { font-size: 16px; line-height: 1.75; color: #9CA3AF; }
+
+    /* ── Content ── */
+    .policy-body { max-width: 780px; margin: 0 auto; padding: 72px 28px 100px; }
+    .policy-updated { display: inline-block; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 6px 14px; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--orange); font-weight: 600; margin-bottom: 48px; }
+    .policy-section { margin-bottom: 52px; }
+    .policy-section h2 { font-size: 22px; font-weight: 700; color: var(--charcoal); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+    .policy-section p { font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.8; color: var(--mid); margin-bottom: 14px; }
+    .policy-section p:last-child { margin-bottom: 0; }
+    .policy-section ul { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+    .policy-section ul li { font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.75; color: var(--mid); padding-left: 20px; position: relative; }
+    .policy-section ul li::before { content: ''; position: absolute; left: 0; top: 10px; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+    .policy-section a { color: var(--orange); text-decoration: none; font-weight: 500; }
+    .policy-section a:hover { text-decoration: underline; }
+
+    /* ── Contact strip ── */
+    .contact-strip { background: var(--charcoal); border-radius: 20px; padding: 40px; text-align: center; margin-top: 64px; }
+    .contact-strip h3 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .contact-strip p { font-size: 14px; color: #6B7280; margin-bottom: 20px; }
+    .contact-strip a.email-link { display: inline-flex; align-items: center; gap: 8px; color: var(--orange-light); font-weight: 600; font-size: 15px; text-decoration: none; }
+    .contact-strip a.email-link:hover { color: var(--orange); }
+
+    /* ── Footer ── */
+    footer { background: var(--charcoal); padding: 60px 28px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand-desc { font-family: 'Inter', sans-serif; font-size: 14px; color: #6B7280; line-height: 1.7; margin-top: 12px; max-width: 280px; }
+    .footer-col-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; color: #E5E7EB; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-link { font-family: 'Inter', sans-serif; font-size: 14px; color: #6B7280; text-decoration: none; transition: color 0.2s ease; }
+    .footer-link:hover { color: var(--orange-light); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-family: 'Inter', sans-serif; font-size: 13px; color: #4B5563; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 540px) {
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div style="max-width:1280px; margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between;">
+      <span style="font-family:'Inter',sans-serif; font-size:12px; color:#9CA3AF;">Automation without the overwhelm</span>
+      <span style="font-family:'Inter',sans-serif; font-size:12px; color:#9CA3AF;">support@justautomate.info</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+        <svg width="32" height="32" viewBox="0 0 100 100">
+          <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F97316"/><stop offset="100%" style="stop-color:#FDBA74"/></linearGradient></defs>
+          <path d="M50,8 L54.5,18.5 C57.5,19.2 60.3,20.4 62.9,21.9 L73.8,17.5 L82.5,26.2 L78.1,37.1 C79.6,39.7 80.8,42.5 81.5,45.5 L92,50 L81.5,54.5 C80.8,57.5 79.6,60.3 78.1,62.9 L82.5,73.8 L73.8,82.5 L62.9,78.1 C60.3,79.6 57.5,80.8 54.5,81.5 L50,92 L45.5,81.5 C42.5,80.8 39.7,79.6 37.1,78.1 L26.2,82.5 L17.5,73.8 L21.9,62.9 C20.4,60.3 19.2,57.5 18.5,54.5 L8,50 L18.5,45.5 C19.2,42.5 20.4,39.7 21.9,37.1 L17.5,26.2 L26.2,17.5 L37.1,21.9 C39.7,20.4 42.5,19.2 45.5,18.5 Z" fill="url(#g1)"/>
+          <circle cx="50" cy="50" r="18" fill="#0D1117"/>
+          <circle cx="50" cy="50" r="12" fill="url(#g1)"/>
+          <path d="M43 50 L49 56 L59 43" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:18px; color:var(--charcoal); letter-spacing:-0.02em;">Just Automate</span>
+      </a>
+      <div class="nav-links">
+        <a href="solutions.html" class="nav-link">Solutions</a>
+        <a href="case-studies.html" class="nav-link">Case Studies</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="free-resources.html" class="nav-link">Free Resources</a>
+      </div>
+      <div class="nav-cta">
+        <a href="book-a-workflow-audit.html" class="btn-primary">Book a Free Audit
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <button class="hamburger" aria-label="Open menu" onclick="document.getElementById('mobileMenu').classList.add('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" aria-label="Close menu" onclick="document.getElementById('mobileMenu').classList.remove('open')">&times;</button>
+    <a href="solutions.html" class="nav-link" onclick="document.getElementById('mobileMenu').classList.remove('open')">Solutions</a>
+    <a href="case-studies.html" class="nav-link" onclick="document.getElementById('mobileMenu').classList.remove('open')">Case Studies</a>
+    <a href="about.html" class="nav-link" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+    <a href="free-resources.html" class="nav-link" onclick="document.getElementById('mobileMenu').classList.remove('open')">Free Resources</a>
+    <a href="book-a-workflow-audit.html" class="btn-primary">Book a Free Audit</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="hero-eyebrow"><span>Legal</span></div>
+      <h1>Terms of Service</h1>
+      <p>The terms and conditions that govern your use of Just Automate's website and services.</p>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="policy-body">
+    <span class="policy-updated">Last updated: March 27, 2026</span>
+
+    <div class="policy-section">
+      <h2>1. Agreement to Terms</h2>
+      <p>By accessing or using the Just Automate website (justautomate.tech) or engaging our services, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please discontinue use of our website and services.</p>
+      <p>These terms apply to all visitors, clients, and anyone who accesses or uses our services.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>2. Description of Services</h2>
+      <p>Just Automate provides workflow automation consulting and implementation services for small businesses, including but not limited to:</p>
+      <ul>
+        <li>Workflow audits and automation strategy sessions</li>
+        <li>Custom automation builds using third-party tools and platforms</li>
+        <li>Integration setup between software systems (CRMs, forms, dashboards, etc.)</li>
+        <li>Ongoing support and optimization for delivered automations</li>
+        <li>Educational resources and downloadable materials provided on the website</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>3. Use of the Website</h2>
+      <p>You agree to use this website only for lawful purposes. You must not:</p>
+      <ul>
+        <li>Use the site in any way that violates applicable local, national, or international laws or regulations</li>
+        <li>Attempt to gain unauthorized access to any part of the website or its related systems</li>
+        <li>Transmit unsolicited or unauthorized advertising or promotional material</li>
+        <li>Reproduce, duplicate, copy, or resell any part of our website or its content without express written permission</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>4. Intellectual Property</h2>
+      <p>All content on this website, including text, graphics, logos, icons, workflow templates, downloadable resources, and case study materials, is the property of Just Automate and is protected by applicable copyright and intellectual property laws.</p>
+      <p>Free resources made available for download are licensed for personal and internal business use only. They may not be redistributed, resold, or repackaged without written consent from Just Automate.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>5. Client Engagements</h2>
+      <p>When you engage Just Automate for paid services, the scope, deliverables, timeline, and payment terms will be outlined in a separate service agreement or proposal. These Terms of Service govern general website use and supplement any service-specific agreement.</p>
+      <ul>
+        <li><strong>Accuracy of information:</strong> You agree to provide accurate and complete information when completing forms or booking sessions. Inaccurate information may affect our ability to serve you.</li>
+        <li><strong>Third-party platforms:</strong> Many automations we build rely on third-party tools (such as Zapier, Make, Airtable, Google Workspace, etc.). We are not responsible for changes, outages, or policy updates made by those platforms.</li>
+        <li><strong>Results:</strong> We do not guarantee specific outcomes. Automation results depend on many factors including data quality, platform reliability, and client follow-through.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>6. Free Workflow Audit</h2>
+      <p>The complimentary workflow audit session is a 30-minute discovery call intended to assess your business workflows and identify automation opportunities. Booking a session does not obligate you or Just Automate to enter into a paid engagement. There is no cost for the initial audit session.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>7. Disclaimer of Warranties</h2>
+      <p>This website and its content are provided on an "as is" basis without warranties of any kind, either express or implied. Just Automate does not warrant that the website will be uninterrupted, error-free, or free of viruses or other harmful components.</p>
+      <p>The information provided on this site is for general informational purposes. It does not constitute legal, financial, or professional advice.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>8. Limitation of Liability</h2>
+      <p>To the fullest extent permitted by law, Just Automate shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of this website or our services. Our total liability for any claim related to our services shall not exceed the amount paid by you for the specific service giving rise to the claim.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>9. Third-Party Links and Tools</h2>
+      <p>Our website may contain links to third-party websites or reference third-party platforms. These links are provided for convenience only. Just Automate has no control over the content, privacy practices, or availability of those sites and accepts no responsibility for them.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>10. Governing Law</h2>
+      <p>These Terms of Service are governed by and construed in accordance with the laws of the State of Georgia, without regard to its conflict of law provisions. Any disputes arising under these terms shall be resolved in the courts located in Georgia.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>11. Changes to These Terms</h2>
+      <p>We reserve the right to update these Terms of Service at any time. Changes will be posted on this page with an updated "Last updated" date. Continued use of our website or services after changes are posted constitutes acceptance of the revised terms.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>12. Contact Us</h2>
+      <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support@justautomate.info">support@justautomate.info</a> or call <a href="tel:4702512643">(470) 251-2643</a>.</p>
+    </div>
+
+    <div class="contact-strip">
+      <h3>Have a question about our terms?</h3>
+      <p>We're always happy to clarify. Send us a message.</p>
+      <a href="mailto:support@justautomate.info" class="email-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        support@justautomate.info
+      </a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <svg width="30" height="30" viewBox="0 0 100 100">
+              <defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F97316"/><stop offset="100%" style="stop-color:#FDBA74"/></linearGradient></defs>
+              <path d="M50,8 L54.5,18.5 C57.5,19.2 60.3,20.4 62.9,21.9 L73.8,17.5 L82.5,26.2 L78.1,37.1 C79.6,39.7 80.8,42.5 81.5,45.5 L92,50 L81.5,54.5 C80.8,57.5 79.6,60.3 78.1,62.9 L82.5,73.8 L73.8,82.5 L62.9,78.1 C60.3,79.6 57.5,80.8 54.5,81.5 L50,92 L45.5,81.5 C42.5,80.8 39.7,79.6 37.1,78.1 L26.2,82.5 L17.5,73.8 L21.9,62.9 C20.4,60.3 19.2,57.5 18.5,54.5 L8,50 L18.5,45.5 C19.2,42.5 20.4,39.7 21.9,37.1 L17.5,26.2 L26.2,17.5 L37.1,21.9 C39.7,20.4 42.5,19.2 45.5,18.5 Z" fill="url(#g2)"/>
+              <circle cx="50" cy="50" r="18" fill="#0D1117"/>
+              <circle cx="50" cy="50" r="12" fill="url(#g2)"/>
+              <path d="M43 50 L49 56 L59 43" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:17px; color:#fff; letter-spacing:-0.02em;">Just Automate</span>
+          </div>
+          <p class="footer-brand-desc">Automation without the overwhelm. We build simple, scalable, smart systems for schools, real estate, and clinics.</p>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Solutions</h5>
+          <div class="footer-links">
+            <a href="solutions.html" class="footer-link">School Pickup Systems</a>
+            <a href="solutions.html" class="footer-link">Real Estate Automation</a>
+            <a href="solutions.html" class="footer-link">Clinic SOAP Flows</a>
+            <a href="solutions.html" class="footer-link">CRM Follow-Ups</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Company</h5>
+          <div class="footer-links">
+            <a href="about.html" class="footer-link">About the Creator</a>
+            <a href="case-studies.html" class="footer-link">Case Studies</a>
+            <a href="free-resources.html" class="footer-link">Free Resources</a>
+            <a href="book-a-workflow-audit.html" class="footer-link">Book an Audit</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Contact</h5>
+          <div class="footer-links">
+            <a href="mailto:support@justautomate.info" class="footer-link">support@justautomate.info</a>
+            <a href="tel:4702512643" class="footer-link">(470) 251-2643</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Just Automate. All rights reserved.</p>
+        <div style="display:flex; gap:20px;">
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer-link" style="color:#E5E7EB;">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

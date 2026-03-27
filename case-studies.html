@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Studies | Just Automate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #F97316;
+      --orange-light: #FDBA74;
+      --orange-dark: #EA6C0A;
+      --charcoal: #0D1117;
+      --charcoal-2: #161B22;
+      --charcoal-3: #1F2937;
+      --charcoal-4: #374151;
+      --mid: #4B5563;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --surface: #F8FAFC;
+      --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--surface); color: var(--charcoal-3); overflow-x: hidden; }
+    h1, h2, h3, h4, h5 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    .topbar { background: var(--charcoal); padding: 9px 0; }
+    nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(229,231,235,0.8); position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 20px rgba(0,0,0,0.06); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-link { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--charcoal-3); text-decoration: none; padding: 6px 0; position: relative; transition: color 0.2s ease; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: var(--orange); border-radius: 1px; transform: scaleX(0); transform-origin: left; transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
+    .nav-link:hover { color: var(--orange); }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .nav-link.active { color: var(--orange); }
+    .nav-link.active::after { transform: scaleX(1); }
+
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14px; padding: 13px 26px; border-radius: 50px; border: none; cursor: pointer; text-decoration: none; transition: background 0.2s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease; box-shadow: 0 4px 20px rgba(249,115,22,0.35); white-space: nowrap; }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,115,22,0.45); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+    .btn-ghost-light { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 14px; padding: 12px 25px; border-radius: 50px; border: 1.5px solid rgba(255,255,255,0.25); cursor: pointer; text-decoration: none; transition: background 0.2s ease, border-color 0.2s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1); }
+    .btn-ghost-light:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); }
+    .btn-ghost-light:focus-visible { outline: 2px solid rgba(255,255,255,0.5); outline-offset: 3px; }
+
+    /* ── Page Hero ── */
+    .page-hero { background: var(--charcoal); position: relative; overflow: hidden; padding: 80px 28px 100px; text-align: center; }
+    .page-hero::before { content: ''; position: absolute; top: -200px; left: -200px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.13) 0%, transparent 65%); pointer-events: none; }
+    .page-hero::after { content: ''; position: absolute; bottom: -150px; right: -100px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(253,186,116,0.07) 0%, transparent 65%); pointer-events: none; }
+    .page-hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25); border-radius: 50px; padding: 6px 14px; margin-bottom: 24px; }
+    .hero-eyebrow span { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: var(--orange-light); letter-spacing: 0.06em; text-transform: uppercase; }
+    .page-hero h1 { font-size: clamp(36px, 4.5vw, 56px); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; color: #fff; margin-bottom: 20px; }
+    .page-hero h1 .accent { color: var(--orange); }
+    .page-hero p { font-size: 17px; line-height: 1.75; color: #9CA3AF; max-width: 560px; margin: 0 auto; }
+
+    /* ── Case Studies ── */
+    .cs-section { padding: 80px 28px 100px; background: var(--surface); }
+    .cs-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 60px; }
+
+    .cs-card { background: #fff; border-radius: 24px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.05); }
+    .cs-card-header { padding: 40px 48px 36px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .cs-number { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 56px; color: rgba(249,115,22,0.12); letter-spacing: -0.04em; line-height: 1; flex-shrink: 0; }
+    .cs-header-text { flex: 1; }
+    .cs-tag { display: inline-block; padding: 4px 12px; border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; background: rgba(249,115,22,0.1); color: var(--orange); border: 1px solid rgba(249,115,22,0.2); margin-bottom: 12px; }
+    .cs-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(22px, 2.5vw, 30px); color: var(--charcoal-3); letter-spacing: -0.025em; line-height: 1.2; margin-bottom: 10px; }
+    .cs-subtitle { font-family: 'Inter', sans-serif; font-size: 15px; color: var(--muted); line-height: 1.65; max-width: 560px; }
+    .cs-time-badge { display: flex; align-items: center; gap: 10px; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); border-radius: 12px; padding: 14px 20px; flex-shrink: 0; }
+    .cs-time-val { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 24px; color: #16A34A; line-height: 1; }
+    .cs-time-label { font-family: 'Inter', sans-serif; font-size: 12px; color: #4B5563; line-height: 1.4; }
+
+    .cs-card-body { padding: 40px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .cs-col-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 16px; }
+    .cs-col-title.before { color: var(--muted); }
+    .cs-col-title.after { color: var(--orange); }
+
+    .cs-before-list, .cs-after-list { display: flex; flex-direction: column; gap: 10px; }
+    .cs-before-item { display: flex; align-items: flex-start; gap: 10px; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--mid); line-height: 1.6; }
+    .cs-before-dot { width: 16px; height: 16px; border-radius: 50%; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .cs-before-dot svg { stroke: #EF4444; }
+    .cs-after-item { display: flex; align-items: flex-start; gap: 10px; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--mid); line-height: 1.6; }
+    .cs-after-dot { width: 16px; height: 16px; border-radius: 50%; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .cs-after-dot svg { stroke: #16A34A; }
+
+    .cs-card-footer { padding: 28px 48px; background: var(--surface); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .cs-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .cs-tool-chip { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid var(--border); border-radius: 50px; padding: 5px 12px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: var(--charcoal-3); }
+    .cs-tool-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: var(--muted); margin-right: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .cs-watch-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--charcoal); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; padding: 11px 20px; border-radius: 50px; text-decoration: none; transition: background 0.2s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1); }
+    .cs-watch-btn:hover { background: var(--charcoal-3); transform: translateY(-2px); }
+    .cs-watch-btn:focus-visible { outline: 2px solid var(--charcoal); outline-offset: 3px; }
+
+    /* ── CTA ── */
+    .cta-section { background: var(--charcoal); padding: 100px 28px; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; top: -100px; left: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 65%); pointer-events: none; }
+    .cta-section::after { content: ''; position: absolute; bottom: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(253,186,116,0.07) 0%, transparent 65%); pointer-events: none; }
+    .cta-inner { max-width: 680px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+    .cta-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.25); border-radius: 50px; padding: 6px 14px; margin-bottom: 24px; }
+    .cta-eyebrow span { font-size: 12px; font-weight: 600; color: var(--orange-light); letter-spacing: 0.06em; text-transform: uppercase; font-family: 'Inter', sans-serif; }
+    .cta-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.025em; color: #fff; margin-bottom: 18px; line-height: 1.1; }
+    .cta-title .accent { color: var(--orange); }
+    .cta-desc { font-family: 'Inter', sans-serif; font-size: 16px; color: #9CA3AF; line-height: 1.7; margin-bottom: 40px; }
+    .cta-btns { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    footer { background: var(--charcoal); padding: 60px 28px 32px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand-desc { font-family: 'Inter', sans-serif; font-size: 14px; color: #6B7280; line-height: 1.7; margin-top: 12px; max-width: 280px; }
+    .footer-col-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; color: #E5E7EB; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-link { font-family: 'Inter', sans-serif; font-size: 14px; color: #6B7280; text-decoration: none; transition: color 0.2s ease; }
+    .footer-link:hover { color: var(--orange-light); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-family: 'Inter', sans-serif; font-size: 13px; color: #4B5563; }
+
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.4,0,0.2,1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-in { opacity: 0; transition: opacity 0.7s ease; }
+    .fade-in.visible { opacity: 1; }
+    .delay-1 { transition-delay: 80ms; }
+    .delay-2 { transition-delay: 160ms; }
+    .delay-3 { transition-delay: 240ms; }
+
+    .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 6px; border-radius: 6px; transition: background 0.2s ease; }
+    .mobile-menu-btn:hover { background: var(--surface); }
+    .mobile-nav { display: none; background: #fff; border-top: 1px solid var(--border); padding: 20px 28px 24px; }
+    .mobile-nav.open { display: flex; flex-direction: column; gap: 4px; }
+    .mobile-nav-link { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500; color: var(--charcoal-3); text-decoration: none; padding: 10px 0; border-bottom: 1px solid var(--border); transition: color 0.2s ease; }
+    .mobile-nav-link:last-child { border-bottom: none; }
+    .mobile-nav-link:hover { color: var(--orange); }
+
+    @media (max-width: 1024px) {
+      .cs-card-body { grid-template-columns: 1fr; gap: 28px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: flex; }
+      .cs-card-header { padding: 28px 28px 24px; }
+      .cs-card-body { padding: 28px; }
+      .cs-card-footer { padding: 20px 28px; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div style="max-width:1280px; margin:0 auto; padding:0 28px; display:flex; justify-content:flex-end; align-items:center; gap:24px;">
+      <a href="mailto:support@justautomate.info" style="color:#6B7280; font-size:12px; font-family:'Inter',sans-serif; text-decoration:none; display:flex; align-items:center; gap:5px; transition:color 0.2s ease;" onmouseover="this.style.color='#FDBA74'" onmouseout="this.style.color='#6B7280'">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        support@justautomate.info
+      </a>
+      <a href="tel:4702512643" style="color:#6B7280; font-size:12px; font-family:'Inter',sans-serif; text-decoration:none; display:flex; align-items:center; gap:5px; transition:color 0.2s ease;" onmouseover="this.style.color='#FDBA74'" onmouseout="this.style.color='#6B7280'">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (470) 251-2643
+      </a>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" style="display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0;" aria-label="Just Automate home">
+        <svg width="34" height="34" viewBox="0 0 100 100">
+          <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F97316"/><stop offset="100%" style="stop-color:#FDBA74"/></linearGradient></defs>
+          <path d="M50,8 L54.5,18.5 C57.5,19.2 60.3,20.4 62.9,21.9 L73.8,17.5 L82.5,26.2 L78.1,37.1 C79.6,39.7 80.8,42.5 81.5,45.5 L92,50 L81.5,54.5 C80.8,57.5 79.6,60.3 78.1,62.9 L82.5,73.8 L73.8,82.5 L62.9,78.1 C60.3,79.6 57.5,80.8 54.5,81.5 L50,92 L45.5,81.5 C42.5,80.8 39.7,79.6 37.1,78.1 L26.2,82.5 L17.5,73.8 L21.9,62.9 C20.4,60.3 19.2,57.5 18.5,54.5 L8,50 L18.5,45.5 C19.2,42.5 20.4,39.7 21.9,37.1 L17.5,26.2 L26.2,17.5 L37.1,21.9 C39.7,20.4 42.5,19.2 45.5,18.5 Z" fill="url(#g1)"/>
+          <circle cx="50" cy="50" r="22" fill="#fff"/>
+          <circle cx="50" cy="50" r="14" fill="url(#g1)"/>
+          <path d="M42 50 L48 56 L60 43" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:17px; color:#0D1117; letter-spacing:-0.02em;">Just Automate</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="solutions.html" class="nav-link">Solutions</a>
+        <a href="case-studies.html" class="nav-link active">Case Studies</a>
+        <a href="free-resources.html" class="nav-link">Free Resources</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="book-a-workflow-audit.html" class="btn-primary" style="padding:10px 20px; font-size:13px;">
+          Book an Audit
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <button class="mobile-menu-btn" aria-label="Toggle menu" onclick="document.getElementById('mobileNav').classList.toggle('open')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F2937" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobileNav" class="mobile-nav">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="about.html" class="mobile-nav-link">About</a>
+      <a href="solutions.html" class="mobile-nav-link">Solutions</a>
+      <a href="case-studies.html" class="mobile-nav-link">Case Studies</a>
+      <a href="free-resources.html" class="mobile-nav-link">Free Resources</a>
+      <a href="book-a-workflow-audit.html" class="mobile-nav-link">Book an Audit</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="hero-eyebrow fade-up">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FDBA74" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        <span>Real Results</span>
+      </div>
+      <h1 class="fade-up delay-1">Case Studies<br/>&amp; <span class="accent">Live Demos</span></h1>
+      <p class="fade-up delay-2">Real workflows, real time savings. See exactly how we've transformed operations across schools, real estate, and healthcare, with before and after numbers to prove it.</p>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="cs-section">
+    <div class="cs-inner">
+
+      <!-- Case Study 1: SafeLane -->
+      <div class="cs-card fade-up">
+        <div class="cs-card-header">
+          <div>
+            <span class="cs-number">01</span>
+          </div>
+          <div class="cs-header-text">
+            <span class="cs-tag">Education / K-12</span>
+            <h2 class="cs-title">SafeLane: School Pickup System</h2>
+            <p class="cs-subtitle">Parents check in from their phones. Staff see a real-time queue. Students are called safely and dismissal finally runs on time.</p>
+          </div>
+          <div class="cs-time-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div>
+              <div class="cs-time-val">20+ hrs</div>
+              <div class="cs-time-label">saved per week</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-card-body">
+          <div>
+            <p class="cs-col-title before">Before</p>
+            <div class="cs-before-list">
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                Paper sign-in lists and manual phone calls to classrooms
+              </div>
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                Chaotic car lines with no visibility or order
+              </div>
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                No attendance record or dismissal audit trail
+              </div>
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                Staff overwhelmed managing multiple students at once
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="cs-col-title after">After</p>
+            <div class="cs-after-list">
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Parents check in via phone, zero paper, zero wait at gate
+              </div>
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Staff view real-time queue on any device, students called in order
+              </div>
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Google Sheets attendance sync + end-of-day report auto-sent
+              </div>
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Dismissal time cut by 40%, safe, orderly, documented
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-card-footer">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <span class="cs-tool-label">Stack:</span>
+            <div class="cs-tools">
+              <span class="cs-tool-chip">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="#10A37F"><circle cx="12" cy="12" r="10"/></svg>
+                GPT-4o
+              </span>
+              <span class="cs-tool-chip">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="#CC785C"><circle cx="12" cy="12" r="10"/></svg>
+                Claude 3
+              </span>
+              <span class="cs-tool-chip">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="#EF5B25"><circle cx="12" cy="12" r="10"/></svg>
+                Postman
+              </span>
+              <span class="cs-tool-chip">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="#0078D4"><circle cx="12" cy="12" r="10"/></svg>
+                Copilot Studio
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Case Study 2: Real Estate -->
+      <div class="cs-card fade-up delay-1">
+        <div class="cs-card-header">
+          <div>
+            <span class="cs-number">02</span>
+          </div>
+          <div class="cs-header-text">
+            <span class="cs-tag">Real Estate</span>
+            <h2 class="cs-title">GAR Real Estate Contract Flow</h2>
+            <p class="cs-subtitle">From manual form-filling and signature chasing to a fully automated contract-to-close pipeline, deal turnaround went from days to hours.</p>
+          </div>
+          <div class="cs-time-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div>
+              <div class="cs-time-val">25+ hrs</div>
+              <div class="cs-time-label">saved per deal cycle</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-card-body">
+          <div>
+            <p class="cs-col-title before">Before</p>
+            <div class="cs-before-list">
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                Manual GAR form filling for every transaction
+              </div>
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                Manually tracking who signed what and when
+              </div>
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                Follow-up emails written manually per client
+              </div>
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                No central deal tracker, data spread across email threads
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="cs-col-title after">After</p>
+            <div class="cs-after-list">
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                GAR contracts auto-generated from a single form submission
+              </div>
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                E-signature sent automatically, status tracked in real time
+              </div>
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Gmail + Copilot follow-ups triggered on schedule automatically
+              </div>
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Notion deal tracker + daily summary report auto-generated
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-card-footer">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <span class="cs-tool-label">Stack:</span>
+            <div class="cs-tools">
+              <span class="cs-tool-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="#10A37F"><circle cx="12" cy="12" r="10"/></svg>GPT-4o</span>
+              <span class="cs-tool-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="#CC785C"><circle cx="12" cy="12" r="10"/></svg>Claude 3</span>
+              <span class="cs-tool-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="#EF5B25"><circle cx="12" cy="12" r="10"/></svg>Postman</span>
+              <span class="cs-tool-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="#0078D4"><circle cx="12" cy="12" r="10"/></svg>Copilot Studio</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Case Study 3: Clinic -->
+      <div class="cs-card fade-up delay-2">
+        <div class="cs-card-header">
+          <div>
+            <span class="cs-number">03</span>
+          </div>
+          <div class="cs-header-text">
+            <span class="cs-tag">Healthcare</span>
+            <h2 class="cs-title">Clinic Follow-Up Automation</h2>
+            <p class="cs-subtitle">SOAP notes, patient scheduling, and follow-up messaging, all handled automatically. Practitioners get their time back and care stays consistent.</p>
+          </div>
+          <div class="cs-time-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div>
+              <div class="cs-time-val">15+ hrs</div>
+              <div class="cs-time-label">saved / practitioner / week</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-card-body">
+          <div>
+            <p class="cs-col-title before">Before</p>
+            <div class="cs-before-list">
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                SOAP notes typed manually after every patient session
+              </div>
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                Follow-up reminders inconsistent and often missed
+              </div>
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                Scheduling done manually with no automation
+              </div>
+              <div class="cs-before-item">
+                <div class="cs-before-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+                No performance data or weekly reporting for the team
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="cs-col-title after">After</p>
+            <div class="cs-after-list">
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Digital SOAP entry, AI drafts note, practitioner reviews in seconds
+              </div>
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                GPT-generated follow-up messages sent on schedule automatically
+              </div>
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Google Calendar scheduling synced + Notion patient log updated
+              </div>
+              <div class="cs-after-item">
+                <div class="cs-after-dot"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Weekly performance dashboard auto-generated every Monday
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-card-footer">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <span class="cs-tool-label">Stack:</span>
+            <div class="cs-tools">
+              <span class="cs-tool-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="#10A37F"><circle cx="12" cy="12" r="10"/></svg>GPT-4o</span>
+              <span class="cs-tool-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="#CC785C"><circle cx="12" cy="12" r="10"/></svg>Claude 3</span>
+              <span class="cs-tool-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="#EF5B25"><circle cx="12" cy="12" r="10"/></svg>Postman</span>
+              <span class="cs-tool-chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="#0078D4"><circle cx="12" cy="12" r="10"/></svg>Copilot Studio</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner fade-up">
+      <div class="cta-eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FDBA74" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>Your Turn</span>
+      </div>
+      <h2 class="cta-title">Ready to be the <span class="accent">next case study?</span></h2>
+      <p class="cta-desc">Every business on this page started with a simple conversation. Book a free workflow audit and we'll show you exactly where automation can save you 10+ hours a week.</p>
+      <div class="cta-btns">
+        <a href="book-a-workflow-audit.html" class="btn-primary">
+          Book a Free Audit
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="solutions.html" class="btn-ghost-light">Explore Solutions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <svg width="30" height="30" viewBox="0 0 100 100">
+              <defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#F97316"/><stop offset="100%" style="stop-color:#FDBA74"/></linearGradient></defs>
+              <path d="M50,8 L54.5,18.5 C57.5,19.2 60.3,20.4 62.9,21.9 L73.8,17.5 L82.5,26.2 L78.1,37.1 C79.6,39.7 80.8,42.5 81.5,45.5 L92,50 L81.5,54.5 C80.8,57.5 79.6,60.3 78.1,62.9 L82.5,73.8 L73.8,82.5 L62.9,78.1 C60.3,79.6 57.5,80.8 54.5,81.5 L50,92 L45.5,81.5 C42.5,80.8 39.7,79.6 37.1,78.1 L26.2,82.5 L17.5,73.8 L21.9,62.9 C20.4,60.3 19.2,57.5 18.5,54.5 L8,50 L18.5,45.5 C19.2,42.5 20.4,39.7 21.9,37.1 L17.5,26.2 L26.2,17.5 L37.1,21.9 C39.7,20.4 42.5,19.2 45.5,18.5 Z" fill="url(#g2)"/>
+              <circle cx="50" cy="50" r="18" fill="#0D1117"/>
+              <circle cx="50" cy="50" r="12" fill="url(#g2)"/>
+              <path d="M43 50 L49 56 L59 43" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:17px; color:#fff; letter-spacing:-0.02em;">Just Automate</span>
+          </div>
+          <p class="footer-brand-desc">Automation without the overwhelm. We build simple, scalable, smart systems for schools, real estate, and clinics.</p>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Solutions</h5>
+          <div class="footer-links">
+            <a href="solutions.html" class="footer-link">School Pickup Systems</a>
+            <a href="solutions.html" class="footer-link">Real Estate Automation</a>
+            <a href="solutions.html" class="footer-link">Clinic SOAP Flows</a>
+            <a href="solutions.html" class="footer-link">CRM Follow-Ups</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Company</h5>
+          <div class="footer-links">
+            <a href="about.html" class="footer-link">About the Creator</a>
+            <a href="case-studies.html" class="footer-link">Case Studies</a>
+            <a href="free-resources.html" class="footer-link">Free Resources</a>
+            <a href="book-a-workflow-audit.html" class="footer-link">Book an Audit</a>
+          </div>
+        </div>
+        <div>
+          <h5 class="footer-col-title">Contact</h5>
+          <div class="footer-links">
+            <a href="mailto:support@justautomate.info" class="footer-link">support@justautomate.info</a>
+            <a href="tel:4702512643" class="footer-link">(470) 251-2643</a>
+            
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Just Automate. All rights reserved.</p>
+        <div style="display:flex; gap:20px;">
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up, .fade-in').forEach(el => observer.observe(el));
+    setTimeout(() => {
+      document.querySelectorAll('.page-hero .fade-up, .page-hero .fade-in').forEach(el => el.classList.add('visible'));
+    }, 80);
+  </script>
+</body>
+</html>

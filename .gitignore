@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Claude / local dev
+.claude/
+memory/
+temporary screenshots/
+screenshot.mjs
+serve.mjs
+# CLAUDE.md
+BrandAssets/
