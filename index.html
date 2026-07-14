@@ -808,14 +808,16 @@
       <div class="fade-up delay-2" style="background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:40px; box-shadow:0 4px 32px rgba(0,0,0,0.05);">
         <h3 style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:22px; color:var(--charcoal-3); margin-bottom:6px; letter-spacing:-0.02em;">Send Us a Message</h3>
         <p style="font-family:'Inter',sans-serif; font-size:14px; color:var(--muted); margin-bottom:28px;">We typically respond within one business day.</p>
-        <form style="display:flex; flex-direction:column; gap:14px;" onsubmit="return false;">
+        <form id="homeContactForm" action="https://formspree.io/f/maqrygzz" method="POST" onsubmit="handleHomeSubmit(event)" style="display:flex; flex-direction:column; gap:14px;">
+          <input type="hidden" name="_subject" value="New inquiry from justautomate.tech homepage" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
-            <input class="form-input" type="text" placeholder="First name" />
-            <input class="form-input" type="text" placeholder="Last name" />
+            <input class="form-input" type="text" name="firstName" placeholder="First name" required />
+            <input class="form-input" type="text" name="lastName" placeholder="Last name" required />
           </div>
-          <input class="form-input" type="email" placeholder="Email address" />
-          <input class="form-input" type="text" placeholder="Company name" />
-          <select class="form-input" style="color:#9CA3AF; appearance:none; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%236B7280%22 stroke-width=%222%22%3E%3Cpolyline points=%226 9 12 15 18 9%22/%3E%3C/svg%3E'); background-repeat:no-repeat; background-position:right 14px center; padding-right:40px;">
+          <input class="form-input" type="email" name="email" placeholder="Email address" required />
+          <input class="form-input" type="text" name="company" placeholder="Company name" />
+          <select class="form-input" name="service" style="color:#9CA3AF; appearance:none; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%236B7280%22 stroke-width=%222%22%3E%3Cpolyline points=%226 9 12 15 18 9%22/%3E%3C/svg%3E'); background-repeat:no-repeat; background-position:right 14px center; padding-right:40px;">
             <option value="" style="color:#9CA3AF;">Area of Interest</option>
             <option style="color:#1F2937;">SafeLane / Automation</option>
             <option style="color:#1F2937;">Real Estate Automation</option>
@@ -823,11 +825,12 @@
             <option style="color:#1F2937;">School / Education Automation</option>
             <option style="color:#1F2937;">Other</option>
           </select>
-          <textarea class="form-input" rows="4" placeholder="Tell us about your workflow challenge..." style="resize:vertical;"></textarea>
-          <button type="submit" class="btn-primary" style="width:100%; justify-content:center; font-size:15px; padding:15px 28px;">
+          <textarea class="form-input" name="message" rows="4" placeholder="Tell us about your workflow challenge..." style="resize:vertical;"></textarea>
+          <button type="submit" class="btn-primary" id="homeSubmitBtn" style="width:100%; justify-content:center; font-size:15px; padding:15px 28px;">
             Send Message
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
+          <p id="homeFormNote" style="font-family:'Inter',sans-serif; font-size:12px; color:#9CA3AF; text-align:center;">No spam. No commitment. We respond within 1 business day.</p>
         </form>
       </div>
 
@@ -893,6 +896,36 @@
   </footer>
 
   <script>
+    // ── Contact form submission ──
+    function handleHomeSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = document.getElementById('homeSubmitBtn');
+      const note = document.getElementById('homeFormNote');
+      const originalBtnHTML = btn.innerHTML;
+      const originalNoteText = note.textContent;
+      btn.disabled = true;
+      btn.innerHTML = 'Sending...';
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then((response) => {
+        if (response.ok) {
+          btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Message Sent';
+          btn.style.background = '#16A34A';
+          form.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      }).catch(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalBtnHTML;
+        note.textContent = 'Something went wrong. Please email us directly at support@justautomate.info.';
+        note.style.color = '#DC2626';
+      });
+    }
+
     // ── Scroll animations ──
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

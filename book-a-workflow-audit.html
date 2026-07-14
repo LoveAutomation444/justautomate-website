@@ -269,31 +269,33 @@
         <h3 class="form-title">Request Your Free Audit</h3>
         <p class="form-subtitle">We'll follow up within one business day to schedule your session.</p>
 
-        <form style="display:flex; flex-direction:column;" onsubmit="return false;">
+        <form id="auditForm" action="https://formspree.io/f/maqrygzz" method="POST" onsubmit="handleAuditSubmit(event)" style="display:flex; flex-direction:column;">
+          <input type="hidden" name="_subject" value="New workflow audit request from justautomate.tech" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="form-row">
             <div class="form-field">
               <label class="form-label">First Name</label>
-              <input class="form-input" type="text" placeholder="First name" />
+              <input class="form-input" type="text" name="firstName" placeholder="First name" required />
             </div>
             <div class="form-field">
               <label class="form-label">Last Name</label>
-              <input class="form-input" type="text" placeholder="Last name" />
+              <input class="form-input" type="text" name="lastName" placeholder="Last name" required />
             </div>
           </div>
 
           <div class="form-field">
             <label class="form-label">Email Address</label>
-            <input class="form-input" type="email" placeholder="you@yourbusiness.com" />
+            <input class="form-input" type="email" name="email" placeholder="you@yourbusiness.com" required />
           </div>
 
           <div class="form-field">
             <label class="form-label">Business / Organization Name</label>
-            <input class="form-input" type="text" placeholder="Your business name" />
+            <input class="form-input" type="text" name="business" placeholder="Your business name" />
           </div>
 
           <div class="form-field">
             <label class="form-label">Industry / Business Type</label>
-            <select class="form-input form-select">
+            <select class="form-input form-select" name="industry">
               <option value="" style="color:#9CA3AF;">Select your industry...</option>
               <option>School / Education</option>
               <option>Real Estate</option>
@@ -306,12 +308,12 @@
 
           <div class="form-field">
             <label class="form-label">Biggest Workflow Challenge</label>
-            <textarea class="form-input" rows="4" placeholder="Describe what's eating the most time in your business right now..." style="resize:vertical;"></textarea>
+            <textarea class="form-input" name="challenge" rows="4" placeholder="Describe what's eating the most time in your business right now..." style="resize:vertical;"></textarea>
           </div>
 
           <div class="form-field">
             <label class="form-label">Preferred Availability</label>
-            <select class="form-input form-select">
+            <select class="form-input form-select" name="availability">
               <option value="" style="color:#9CA3AF;">When works best for you?</option>
               <option>Weekday mornings (9am–12pm ET)</option>
               <option>Weekday afternoons (12pm–5pm ET)</option>
@@ -320,12 +322,12 @@
             </select>
           </div>
 
-          <button type="submit" class="btn-primary form-submit">
+          <button type="submit" class="btn-primary form-submit" id="auditSubmitBtn">
             Request My Free Audit
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
 
-          <p style="font-family:'Inter',sans-serif; font-size:12px; color:var(--muted); text-align:center; margin-top:14px; line-height:1.6;">No spam. No commitment. We respond within 1 business day.</p>
+          <p id="auditFormNote" style="font-family:'Inter',sans-serif; font-size:12px; color:var(--muted); text-align:center; margin-top:14px; line-height:1.6;">No spam. No commitment. We respond within 1 business day.</p>
         </form>
       </div>
 
@@ -414,6 +416,35 @@
   </footer>
 
   <script>
+    // ── Audit form submission ──
+    function handleAuditSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = document.getElementById('auditSubmitBtn');
+      const note = document.getElementById('auditFormNote');
+      const originalBtnHTML = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = 'Sending...';
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then((response) => {
+        if (response.ok) {
+          btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Request Sent';
+          btn.style.background = '#16A34A';
+          form.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      }).catch(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalBtnHTML;
+        note.textContent = 'Something went wrong. Please email us directly at support@justautomate.info.';
+        note.style.color = '#DC2626';
+      });
+    }
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
